@@ -11,7 +11,7 @@ COPY ./main.go .
 
 RUN GOOS=linux GOARCH=arm64 go build -o main main.go
 
-FROM alpine:latest
+FROM arm64v8/alpine:latest
 WORKDIR /
 
 COPY --from=builder /main .

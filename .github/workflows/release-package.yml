@@ -16,7 +16,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Build image with multi platforms
+            - name: Build image for ARM64
               run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
             - name: Log in to registry
