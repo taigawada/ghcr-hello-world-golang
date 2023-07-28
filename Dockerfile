@@ -1,14 +1,19 @@
-FROM arm64v8/golang:1.19-alpine
+FROM golang:1.19.7-alpine AS builder
 
 ENV GOPATH=
-WORKDIR /go
+WORKDIR /
 
-COPY ./go.mod /go
+COPY ./go.mod .
 
 RUN go mod tidy
 
-COPY ./main.go /go
+COPY ./main.go .
 
 RUN go build -o main main.go
 
-CMD GOENV=production /go/main
+FROM alpine:latest
+WORKDIR /
+
+COPY --from builder /main .
+
+CMD ["./main"]
